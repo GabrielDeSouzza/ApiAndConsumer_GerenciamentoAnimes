@@ -1,5 +1,5 @@
-﻿using Api_Gerenciamento_Animes.Componentes;
-using Api_Gerenciamento_Animes.Models;
+﻿using Api_Gerenciamento_Animes.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api_Gerenciamento_Animes.Services
 {
@@ -21,10 +21,11 @@ namespace Api_Gerenciamento_Animes.Services
                     Descricao = "Guts é um ex-mercenário espadachim que era comandante da Tropa de Assalto e agora vive," +
                     " em uma espécie de terra alternativa e com traços medievais, para caçar demônios" +
                     " Apóstolos, aqueles que já foram humanos um dia, mas por causa de um pacto tomaram outra forma. ",
-                    Genero = new List<string> { "Fantasia sombria", "Épico", "Espada", "Gore", "Seinen" }
+                    Genero =  "Fantasia sombria, Épico, Espada, Gore, Seinen" 
                 }
             };
         }
+        
         public static List<Anime> GetAll() => Animes;
 
         public static Anime Get(int id)
@@ -57,6 +58,7 @@ namespace Api_Gerenciamento_Animes.Services
             if (index == -1)
                 return;
             Animes[index] = anime;
+            
         }
     }
 }

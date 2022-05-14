@@ -19,11 +19,7 @@ class Program
 
         Console.WriteLine($"Id:{anime.Id}");
         Console.WriteLine($"Anime:{anime.Titulo}");
-        foreach(string animeGeneros in anime.Genero)
-        {
-            Console.Write(animeGeneros+"; ");
-        }
-        Console.WriteLine();
+        Console.WriteLine($"Genero:{anime.Genero}");
         Console.WriteLine($"Descrição:{anime.Descricao}");
         Console.WriteLine($"Ano:{anime.Ano}");
     }
@@ -63,7 +59,7 @@ class Program
     }
     static async Task<Anime> AtualizarAnimeAsync(Anime anime)
     {
-        HttpResponseMessage response = await client.PutAsJsonAsync($"api/Anime?id={anime.Id}", anime);
+        HttpResponseMessage response = await client.PutAsJsonAsync($"api/Anime/{anime.Id}", anime);
         response.EnsureSuccessStatusCode();
         anime = await response.Content.ReadAsAsync<Anime>();
         return anime;
@@ -71,7 +67,7 @@ class Program
 
     static async Task<HttpStatusCode> DeleteAnimeAsync(int id)
     {
-        HttpResponseMessage response = await client.DeleteAsync($"api/Anime?id={id}");
+        HttpResponseMessage response = await client.DeleteAsync($"api/Anime/{id}");
         return response.StatusCode;
     }
 
@@ -112,6 +108,9 @@ class Program
                     {
                         Console.WriteLine("Nenhum anime encontrado");
                     }
+                    Console.WriteLine("\n\n\n");
+                    goto Inicio;
+                    
                     break;
                 case 2:
                     Console.WriteLine("Digite o Id do anime desejado");
@@ -132,8 +131,11 @@ class Program
                     Console.WriteLine("Digite os Generos dos anime");
                     Console.WriteLine("Obs: Coloque uma virgula para separar os generos");
                     string genero = Console.ReadLine();
-                    novoAnime.Genero = genero.Split(",").ToList();
+                    novoAnime.Genero = genero;
                     await CriarAnimeAsync(novoAnime);
+                    Console.WriteLine("Anime Adicionado\n\n\n");
+                    goto Inicio;
+
                     break;
                 case 4:
                     Console.WriteLine("Digite o ID do anime a ser atualizado");
@@ -150,12 +152,14 @@ class Program
                         Console.WriteLine("Digite os Generos dos anime");
                         Console.WriteLine("Obs: Coloque uma virgula para separar os generos");
                         string generoUp = Console.ReadLine();
-                        animeUp.Genero = generoUp.Split(",").ToList();
+                        animeUp.Genero = generoUp;
                         await AtualizarAnimeAsync(animeUp);
+                        Console.WriteLine("Anime Atualiado\n\n\n");
+                        goto Inicio;
                     }
                     else
                     {
-                        Console.WriteLine("Id invalido, tente novamente");
+                        Console.WriteLine("Id invalido, tente novamente\n\n\n");
                         goto Inicio;
                     }
                     break;
@@ -165,6 +169,8 @@ class Program
                     var animeDel = await GetAnimeByIDAsync("api/Anime", idDel);
                     Console.WriteLine($"Você está excluindo {animeDel.Titulo}");
                     Console.WriteLine( await DeleteAnimeAsync(idDel));
+                    Console.WriteLine("Anime deletado\n\n\n");
+                    goto Inicio;
                     break;
                 default:
                     Console.WriteLine("Tente novamente");

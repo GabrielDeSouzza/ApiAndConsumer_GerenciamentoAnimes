@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api_Gerenciamento_Animes.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
+    /*[ApiController]
+    [Route("api/[controller]")]*/
 
     
     public class AnimeController : ControllerBase
@@ -15,10 +15,11 @@ namespace Api_Gerenciamento_Animes.Controllers
         [HttpGet]
         public ActionResult<List<Anime>> getAll()
         {
+
             return AnimeService.GetAll();
         }
 
-        [HttpGet("{id}")]
+       /* [HttpGet("{id}")]
         public ActionResult<Anime> Get(int id)
         {
             var anime = AnimeService.Get(id);
@@ -34,10 +35,13 @@ namespace Api_Gerenciamento_Animes.Controllers
             return Ok(anime);
             //return CreatedAtAction(nameof(Anime), new{id = anime.Id }, anime);
         }
+       
+
         
         [HttpPut]
         public IActionResult Update(int id, Anime anime)
         {
+            
             if(id != anime.Id)
             {
                 return BadRequest();
@@ -61,6 +65,6 @@ namespace Api_Gerenciamento_Animes.Controllers
             }
             AnimeService.Delete(id);
             return NoContent();
-        }
+        }*/
     }
 }
