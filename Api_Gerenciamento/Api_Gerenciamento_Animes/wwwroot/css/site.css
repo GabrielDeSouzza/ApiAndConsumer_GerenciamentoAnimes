@@ -1,3 +1,32 @@
+html {
+    background-color: #000000;
+  }
+body {
+    display: flex;
+    justify-content: flex-start;
+    padding: 155px 200px 200px 200px;
+    background-image: url('../img/bleach.jpg') ;
+    border: 1px black solid;
+}
+main{
+    flex-wrap: wrap;
+    min-width: 100px;
+    min-height: 100px;
+}
+
+h1{
+    
+    margin: 0;
+    padding: 20px 0;
+    color: #8b0404;
+    text-shadow: 3px 3px 1px black;
+}
+
+
+#subtitulo{
+    color: rgb(184, 27, 27);
+}
+
 input[type='submit'], button, [aria-label]{
     cursor: pointer;
 }
@@ -8,6 +37,7 @@ table {
     font-family: Arial, Helvetica, sans-serif;
     border:  1px solid;
     border-collapse: collapse;
+    
 }
 
 th {

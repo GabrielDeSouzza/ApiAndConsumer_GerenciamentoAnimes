@@ -6,55 +6,56 @@
     <link  rel="stylesheet" href="css/site.css" />
 </head>
 <body>
-    <h1>Api de Gerenciamento</h1>
-    <h3>Add</h3>
-    <div>
-        <form action="javascript:void(0);" method="POST" onsubmit="addItem()">
-        <div id="addForm">
-            <input type="text" id="add-titulo" placeholder="Titulo">
-            <input type="text"  id="add-genero" placeholder="Genero">
-        </div>
+    <main>
+        <h1>My List</h1>
+        <h3 id="subtitulo">Adicione novos animes a sua lista</h3>
         <div>
-            <input type="number" id="add-ano" placeholder="ano">
-            <input type="text" id="add-descricao" placeholder="descição">
+            <form action="javascript:void(0);" method="POST" onsubmit="addItem()">
+                <div id="addForm">
+                    <input type="text" id="add-titulo" placeholder="Titulo">
+                    <input type="text"  id="add-genero" placeholder="Genero">
+                </div>
+                <div>
+                    <input type="number" min="1958" id="add-ano" placeholder="Ano">
+                    <input type="text" id="add-descricao" placeholder="Descição">
+                </div>
+                <input type="submit" value="Add">
+            </form>
         </div>
-        <input type="submit" value="Add">
-    </form>
-    </div>
 
-    <h3>Edit</h3>
-    <div id="editForm">
+        <h3>Edit</h3>
+        <div id="editForm">
 
-        <form action="javascript:(0);" onsubmit="updateItem()">
-            <div>
-                <input type="number" id="edit-id" placeholder="id">
-            </div>
-            <div>
-                <input type="text" id="edit-titulo" placeholder="Nome">
-                <input type="text"  id="edit-genero" placeholder="Genero">
-            </div>
-            <div>
-                <input type="number" id="edit-ano" placeholder="ano">
-                <input type="text" id="edit-descricao" placeholder="descição">
-            </div>
-            <input type="submit" value="Save">
-            <a onclick="closeInput()" aria-label="Close">&#10006;</a>
-        </form>
-    </div>
+            <form action="javascript:(0);" onsubmit="updateItem()">
+                <div>
+                    <input type="number" id="edit-id" placeholder="id" disabled="true">
+                </div>
+                <div>
+                    <input type="text" id="edit-titulo" placeholder="Nome">
+                    <input type="text"  id="edit-genero" placeholder="Genero">
+                </div>
+                <div>
+                    <input type="number" min="1958" id="edit-ano" placeholder="Ano">
+                    <input type="text" id="edit-descricao" placeholder="Descição">
+                </div>
+                <input type="submit" value="Save">
+                <a onclick="closeInput()" aria-label="Close">&#10006;</a>
+            </form>
+        </div>
 
-    <p id="counter"></p>
+        <p id="counter"></p>
 
-    <table>
-        <tr>
-            <th>Animes adicionados</th>
-            <th>Name</th>
-            <th></th>
-            <th></th>
-            <th></th>
-        </tr>
-        <tbody id="animes"></tbody>
-    </table>
-
+        <table id="tabela">
+            <tr>
+                <th>Animes adicionados</th>
+                <th>Name</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tbody id="animes"></tbody>
+        </table>
+</main>
     <script src="js/site.js" asp-append-version="true"></script>
     <script type="text/javascript">
         getItems();

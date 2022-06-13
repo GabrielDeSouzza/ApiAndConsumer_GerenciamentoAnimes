@@ -47,12 +47,13 @@ function deleteItem(id) {
 
 function displayEditForm(id) {
     const item = animes.find(item => item.id === id);
-
+    document.getElementById('edit-id').value = item.id;
     document.getElementById('edit-titulo').value = item.titulo;
     document.getElementById('edit-genero').value = item.genero;
     document.getElementById('edit-ano').value = item.ano;
     document.getElementById('edit-descricao').value = item.descricao;
     document.getElementById('editForm').style = 'block';
+    
 }
 
 function updateItem() {
@@ -101,10 +102,6 @@ function _displayItems(data) {
     const button = document.createElement('button');
 
     data.forEach(item => {
-        let isCompleteCheckbox = document.createElement('input');
-        isCompleteCheckbox.type = 'checkbox';
-        isCompleteCheckbox.disabled = true;
-        isCompleteCheckbox.checked = item.isComplete;
 
         let editButton = button.cloneNode(false);
         editButton.innerText = 'Edit';
