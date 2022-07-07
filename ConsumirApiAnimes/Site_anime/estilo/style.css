@@ -1,0 +1,120 @@
+body{
+    padding-left: 0px;
+}
+
+a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    
+} 
+a{
+    text-decoration: none;
+}
+a:visited{
+    color: inherit;
+}
+a:hover{
+    color: inherit;
+}
+.header-menu{
+    display: block;
+}
+.menu, .search{
+    padding: 5px 0px;
+}
+
+.menu-icon{
+    border-color: red;
+    background-color: rgb(233, 27, 27);
+    float: left;
+    padding: 14px;
+    background-image: url(/img/menu-icon.png);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.search-icon{
+    background-color: gray;
+    padding: 14px;
+    float: right;
+    background-image: url(/img/search-icon.png);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+
+.logo{
+    background-color: black;
+    color: white;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    padding: 0px 0;
+    
+}
+.text-logo{
+    font-weight: 700;
+    font-size: 25px;
+    padding: 5px;
+    display: inline-block;
+}
+.sub-tittle {
+    color: whitesmoke;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+}
+
+.abc{
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #888484;
+    color: white;
+    justify-content: center;
+    
+}
+.abc li{
+    list-style: none;
+    padding: 10px;
+    margin: 5px 5px 5px 0px;
+    text-align: center;
+    border-color: aquamarine;
+}
+.main-content{
+    display: block;
+    width: 100%;
+    left: 0px;
+    background-color: rgb(15, 14, 14);
+    float: left;
+    margin-bottom: 10px;
+    border-bottom: 1px solid black;
+}
+content{
+    width:  101px;
+}
+.anime-image{
+    border-radius: 10px;
+    width: 115px;
+    height: 172;
+    padding-right: 10px;
+}
+.poster{
+    color: aliceblue;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    width: 100%;
+    overflow: hidden;
+    justify-content: center;   
+}
+.titulo-anime{
+    height: 10px;
+}
+.anime-link{
+    width: 126px;
+    height: 189px;
+    display: block;
+}

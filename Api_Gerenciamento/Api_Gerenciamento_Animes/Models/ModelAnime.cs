@@ -6,12 +6,13 @@ namespace Api_Gerenciamento_Animes.Models
 {
     public class Anime
     {
-
+        public char FirstLetter { get; set; }
         public int Id { get; set; }
         public string? Genero { get; set; }
         public int Ano { get; set; }
         public string? Titulo { get; set; }
         public string? Descricao { get; set; }
+        public string? ImageUrl { get; set; }
         
     }
     

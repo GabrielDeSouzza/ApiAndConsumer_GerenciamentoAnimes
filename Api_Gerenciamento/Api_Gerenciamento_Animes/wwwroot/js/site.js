@@ -5,21 +5,25 @@ function getItems() {
     fetch(uri)
         .then(response => response.json())
         .then(data => _displayItems(data))
-        .catch(error => console.error('Unable to get items.', error));
+        .catch(console.error("Não foi possível atualizar item."));
+
 }
 
-    function addItem() {
-        
+function addItem() {
+    const addFirstLetter = document.getElementById("add-firstLetter")    
     const addTituloTextbox = document.getElementById('add-titulo');
     const addGeneroTextbox = document.getElementById('add-genero');
     const addAnoTextbox = document.getElementById('add-ano');
     const addDescricaoTextbox = document.getElementById('add-descricao');
+    const addImageUrl = document.getElementById("add-imageUrl")
         const item = {
         id: 0,
         titulo: addTituloTextbox.value.trim(),
         genero: addGeneroTextbox.value.trim(),
         ano: addAnoTextbox.value.trim(),
-        descricao: addDescricaoTextbox.value.trim()
+        descricao: addDescricaoTextbox.value.trim(),
+        imageUrl: addImageUrl.value.trim(),
+        firstLetter: addFirstLetter.value.trim()
     };
     fetch(uri, {
         method: 'POST',
@@ -32,9 +36,14 @@ function getItems() {
         .then(response => response.json())
         .then(() => {
             getItems();
-            addTituloTextbox.value = ' ';
+            addTituloTextbox.value = '';
+            addDescricaoTextbox.value = '';
+            addGeneroTextbox.value = '';
+            addImageUrl = '';
+            addAnoTextbox = 0;
+            addFirstLetter = '';
         })
-        .catch(error => console.error('Não foi possível add item.', error));
+        .catch(error => alert("Erro"));
 
     }
 function deleteItem(id) {
@@ -51,23 +60,29 @@ function displayEditForm(id) {
     document.getElementById('edit-titulo').value = item.titulo;
     document.getElementById('edit-genero').value = item.genero;
     document.getElementById('edit-ano').value = item.ano;
+    document.getElementById('edit-imageUrl').value = item.imageUrl;
     document.getElementById('edit-descricao').value = item.descricao;
-    document.getElementById('editForm').style = 'block';
-    
+    document.getElementById('edit-form').style = 'block';
+    document.getElementById("edit-imageload").src = item.imageUrl;
+    document.getElementById('edit-firstLetter').value = item.firstLetter;
 }
 
 function updateItem() {
-    const itemId = document.getElementById('edit-id').value;
-    const editTituloTextbox = document.getElementById('edit-titulo');
-    const editGeneroTextbox = document.getElementById('edit-genero');
-    const editAnoTextbox = document.getElementById('edit-ano');
-    const editDescricaoTextbox = document.getElementById('edit-descricao');
-    const item = {
+    let itemId = document.getElementById('edit-id').value;
+    let editTituloTextbox = document.getElementById('edit-titulo');
+    let editGeneroTextbox = document.getElementById('edit-genero');
+    let editAnoTextbox = document.getElementById('edit-ano');
+    let editImageUrl = document.getElementById("edit-imageUrl")
+    let editDescricaoTextbox = document.getElementById('edit-descricao');
+    let editFirstLetter = document.getElementById('edit-firstLetter');
+    let item = {
         id: parseInt(itemId, 10),
         titulo: editTituloTextbox.value.trim(),
         genero: editGeneroTextbox.value.trim(),
         ano: editAnoTextbox.value.trim(),
-        descricao: editDescricaoTextbox.value.trim()
+        descricao: editDescricaoTextbox.value.trim(),
+        imageurl: editImageUrl.value.trim(),
+        firstLetter: editFirstLetter.value.trim()
     };
 
     fetch(`${uri}/${itemId}`, {
@@ -78,17 +93,27 @@ function updateItem() {
         },
         body: JSON.stringify(item)
     })
-        .then(() => getItems())
+        .then(() => {
+            getItems();
+            itemId = 0;
+            editAnoTextbox.value = 0;
+            editDescricaoTextbox.value = '';
+            editGeneroTextbox.value = '';
+            editImageUrl.value = '';
+            editTituloTextbox.value = '';
+            alert("Editado com Sucesso!!!");
+        })
+
         .catch(error => console.error("Não foi possível atualizar item.", error))
     return false;
 }
 
 function closeInput() {
-    document.getElementById('editForm').style.display = 'none';
+    document.getElementById('edit-form').style.display = 'none';
 }
 
 function _displayCount(itemCount) {
-    const name = (itemCount === 1) ? 'anime' : 'animes';
+    const name = (itemCount === 1) ? 'anime cadastrado' : 'animes cadastratos';
 
     document.getElementById('counter').innerText = `${itemCount} ${name}`;
 }
@@ -114,18 +139,22 @@ function _displayItems(data) {
         let tr = tBody.insertRow();
 
         let td1 = tr.insertCell(0);
-        td1.appendChild(isCompleteCheckbox);
-
+        let  textNode = document.createTextNode(item.titulo);
+        td1.appendChild(textNode);
         let td2 = tr.insertCell(1);
-        let textNode = document.createTextNode(item.titulo);
-        td2.appendChild(textNode);
+        td2.appendChild(editButton);
 
         let td3 = tr.insertCell(2);
-        td3.appendChild(editButton);
-
-        let td4 = tr.insertCell(3);
-        td4.appendChild(deleteButton);
+        td3.appendChild(deleteButton);
     });
 
-    animes = data;
+    animes = data;   
+}
+
+
+
+function loadImage(){
+    const imageUrl = document.getElementById("add-imageUrl").value;
+    const image =  document.getElementById("add-imageload");
+    image.src = imageUrl;
 }

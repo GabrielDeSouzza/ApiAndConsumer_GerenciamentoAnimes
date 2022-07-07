@@ -34,6 +34,12 @@ namespace Api_Gerenciamento_Animes.Migrations
                     b.Property<string>("Titulo")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("TEXT");
+
+                    b.Property<char>("FirsLetter")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.ToTable("Animes");

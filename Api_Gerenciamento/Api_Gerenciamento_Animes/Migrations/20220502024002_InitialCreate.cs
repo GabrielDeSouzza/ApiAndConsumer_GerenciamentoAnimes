@@ -17,7 +17,9 @@ namespace Api_Gerenciamento_Animes.Migrations
                     Genero = table.Column<string>(type: "TEXT", nullable: true),
                     Ano = table.Column<int>(type: "INTEGER", nullable: false),
                     Titulo = table.Column<string>(type: "TEXT", nullable: true),
-                    Descricao = table.Column<string>(type: "TEXT", nullable: true)
+                    Descricao = table.Column<string>(type: "TEXT", nullable: true),
+                    ImageUrl = table.Column<string>(type: "TEXT", nullable: true),
+                    FirstLetter = table.Column<char>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {

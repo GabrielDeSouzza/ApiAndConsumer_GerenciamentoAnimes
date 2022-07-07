@@ -1,51 +1,48 @@
-html {
-    background-color: #000000;
-  }
-body {
-    display: flex;
-    justify-content: flex-start;
-    padding: 155px 200px 200px 200px;
-    background-image: url('../img/bleach.jpg') ;
-    border: 1px black solid;
-}
-main{
-    flex-wrap: wrap;
-    min-width: 100px;
-    min-height: 100px;
-}
 
-h1{
+body,  h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
+    margin: 0px;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    vertical-align: baseline;
     
-    margin: 0;
-    padding: 20px 0;
-    color: #8b0404;
-    text-shadow: 3px 3px 1px black;
+} 
+#titulo{
+    font-size: 30px;
+    background-color: rgb(0, 0, 0);
+    color: white;
+    text-align: center;
 }
-
-
 #subtitulo{
-    color: rgb(184, 27, 27);
+    font-size: 20px;
+    color: rgb(165, 165, 165);
+    background-color: rgb(0, 5, 15);
+    text-align: center;
+}
+.my-form{
+    background-color: rgb(1, 21, 63);
+    width:100%;
+    padding: 10px;
 }
 
-input[type='submit'], button, [aria-label]{
-    cursor: pointer;
+#title-edit {
+    justify-content: center;
+    color: snow;
+    background-color: black;
+    text-align: center;
+    color: rgb(165, 165, 165);
+}
+#edit-form {
+    font-size: 20px;
+    background-color: rgb(0, 21, 78);
+    width: 100%;
+    padding: 10px;
+  
+}
+#add-firstLetter, #edit-firstLetter{
+    text-transform: uppercase;
 }
 
-
-
-table {
-    font-family: Arial, Helvetica, sans-serif;
-    border:  1px solid;
-    border-collapse: collapse;
-    
-}
-
-th {
-    background-color: #f8f8f8;
-    padding: 5px;
-}
-
-td{
-    border: 1px solid;
-    padding: 5px;
+table td {
+    background-color: aliceblue;
 }

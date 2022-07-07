@@ -21,7 +21,9 @@ namespace Api_Gerenciamento_Animes.Services
                     Descricao = "Guts é um ex-mercenário espadachim que era comandante da Tropa de Assalto e agora vive," +
                     " em uma espécie de terra alternativa e com traços medievais, para caçar demônios" +
                     " Apóstolos, aqueles que já foram humanos um dia, mas por causa de um pacto tomaram outra forma. ",
-                    Genero =  "Fantasia sombria, Épico, Espada, Gore, Seinen" 
+                    Genero =  "Fantasia sombria, Épico, Espada, Gore, Seinen",
+                    ImageUrl = "https://animesonline.cc/wp-content/uploads/2019/07/kAeL4Gth7G7fLVzuJGjf6HpaJPq-185x278.jpg",
+                    FirstLetter = 'b'
                 }
             };
         }

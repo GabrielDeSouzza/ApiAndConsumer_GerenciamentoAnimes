@@ -7,53 +7,86 @@
 </head>
 <body>
     <main>
-        <h1>My List</h1>
-        <h3 id="subtitulo">Adicione novos animes a sua lista</h3>
+        <div id="titulo">
+            <h1>My List</h1>
+        </div>    
         <div>
+            <h3 id="subtitulo">Adicione novos animes a sua lista</h3>
+        </div>
+        <div class="my-form">
             <form action="javascript:void(0);" method="POST" onsubmit="addItem()">
-                <div id="addForm">
+                <div id="div-firstLetter">
+                    <input type="text" id="add-firstLetter" placeholder="Primeira letra"/>
+                </div>
+                <div id="div-titulo">
                     <input type="text" id="add-titulo" placeholder="Titulo">
-                    <input type="text"  id="add-genero" placeholder="Genero">
                 </div>
-                <div>
+                <div id="div-genero">
+                    <textarea  id="add-genero" placeholder="Genero" cols="50" rows="5"></textarea>
+                </div>
+                <div id="div-ano">
                     <input type="number" min="1958" id="add-ano" placeholder="Ano">
-                    <input type="text" id="add-descricao" placeholder="Descição">
                 </div>
+                <div id="div-descricao">
+                    <textarea id="add-descricao" placeholder="Descição" rows="5" cols="50"></textarea>
+                </div>
+                <div id="div-imageUrl">
+                    <input type="text" id="add-imageUrl" placeholder="Url da imagem do anime" onblur="loadImage()">
+                </div>
+                <div id="image">
+                    <img src="" alt="" id="add-imageload" >
+                </div>
+
                 <input type="submit" value="Add">
             </form>
         </div>
 
-        <h3>Edit</h3>
-        <div id="editForm">
+        <h3 id="title-edit">Edit</h3>
+        <div id="edit-form">
 
             <form action="javascript:(0);" onsubmit="updateItem()">
+                <div id="div-firstLetter">
+                    <input type="text" id="edit-firstLetter" placeholder="Primeira letra" />
+                </div>
                 <div>
                     <input type="number" id="edit-id" placeholder="id" disabled="true">
                 </div>
                 <div>
                     <input type="text" id="edit-titulo" placeholder="Nome">
-                    <input type="text"  id="edit-genero" placeholder="Genero">
+                </div>
+                <div>
+                    <textarea id="edit-genero" placeholder="Genero" rows="5" cols="50"></textarea>
                 </div>
                 <div>
                     <input type="number" min="1958" id="edit-ano" placeholder="Ano">
-                    <input type="text" id="edit-descricao" placeholder="Descição">
                 </div>
+                <div>
+                    <textarea id="edit-descricao" placeholder="Descição" rows="5" cols="50"></textarea>
+                </div>
+                <div>
+                    <input type="text" id="edit-imageUrl" placeholder="Url imagem">
+                </div>
+                <div id="image">
+                    <img src="#" alt="" id="edit-imageload">
+                </div>
+
                 <input type="submit" value="Save">
                 <a onclick="closeInput()" aria-label="Close">&#10006;</a>
             </form>
         </div>
 
         <p id="counter"></p>
-
+        <h3>Animes Adicionados</h3>
         <table id="tabela">
             <tr>
-                <th>Animes adicionados</th>
-                <th>Name</th>
-                <th></th>
-                <th></th>
-                <th></th>
+                <th>Nome</th>
+                <th>Funções</th>
+            </tr>
+            <tr>
+                 fsf
             </tr>
             <tbody id="animes"></tbody>
+            
         </table>
 </main>
     <script src="js/site.js" asp-append-version="true"></script>
