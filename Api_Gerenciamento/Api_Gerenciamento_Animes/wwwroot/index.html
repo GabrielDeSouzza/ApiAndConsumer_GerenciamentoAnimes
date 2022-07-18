@@ -22,7 +22,40 @@
                     <input type="text" id="add-titulo" placeholder="Titulo">
                 </div>
                 <div id="div-genero">
-                    <textarea  id="add-genero" placeholder="Genero" cols="50" rows="5"></textarea>
+                    <select  id="list-genero" multiple onclick="teste()">
+                        <option >Ação</option>
+                        <option >Aventura</option>
+                        <option >Comédia</option>
+                        <option >Drama</option>
+                        <option >Ecchi</option>
+                        <option >Escolar</option>
+                        <option >Esporte</option>
+                        <option >Fantasia</option>
+                        <option >Ficção Científica</option>
+                        <option >Harém</option>
+                        <option >Horror</option>
+                        <option >Luta</option>
+                        <option >Magia</option>
+                        <option >Mecha</option>
+                        <option >Militar</option>
+                        <option >Musical</option>
+                        <option >Romange</option>
+                        <option >Samurai</option>
+                        <option >Seinen</option>
+                        <option >Shoujo</option>
+                        <option >Shounen</option>
+                        <option >Slice Of Life</option>
+                        <option >Sobrenatural</option>
+                        <option >Super Poderes</option>
+                        <option >Suspense</option>
+                        <option >Terror</option>
+                        <option >Yaoi</option>
+                        <option >Yuri</option>
+                    </select>
+                    <table id="tabela-selecionado">
+                        <tr>Generos Selecionados</tr>
+                        <tbody id="add-generos"></tbody>
+                    </table>
                 </div>
                 <div id="div-ano">
                     <input type="number" min="1958" id="add-ano" placeholder="Ano">

@@ -7,28 +7,12 @@ function  getItems() {
         .then( animes => addAnime(animes)) 
 }
 
-function criarTable(animes){
-    linha = document.createElement("tr");
-    tdTitulo = document.createElement("td");
-    tdGenero = document.createElement("td"); 
-    tdTitulo.innerHTML = animes.titulo;
-    tdGenero.innerHTML = animes.genero;
-
-    linha.appendChild(tdTitulo);
-    linha.appendChild(tdGenero);
-
-    return linha;
+function getItemLetter(letter) {
+    fetch(url+'/letter/'+letter)
+        .then(limparPoster())
+        .then( response => response.json())
+        .then( animes => addAnime(animes))
 }
-
-//função que add os dados no site
-function addTable(animes){
-    let table = document.getElementById('table')
-    animes.forEach(element => {
-        let novalinha = criarTable(element);
-        table.appendChild(novalinha);
-    });
-}
-
 
 function criarBannerAnime(anime){
     let animeLink = document.createElement("a");
@@ -51,4 +35,9 @@ function addAnime(animes){
         let novoBanner = criarBannerAnime(anime);
         poster.appendChild(novoBanner);
     });
+}
+
+function limparPoster(){
+    const poster =document.querySelector('.poster');
+    poster.innerHTML = "";
 }
