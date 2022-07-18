@@ -5,23 +5,23 @@ function getItems() {
     fetch(uri)
         .then(response => response.json())
         .then(data => _displayItems(data))
-        .catch(console.error("Não foi possível atualizar item."));
+        .catch(error => alert("Erro"));
 
 }
 
 function addItem() {
     const addFirstLetter = document.getElementById("add-firstLetter")    
-    const addTituloTextbox = document.getElementById('add-titulo');
-    const addGeneroTextbox = document.getElementById('add-genero');
-    const addAnoTextbox = document.getElementById('add-ano');
-    const addDescricaoTextbox = document.getElementById('add-descricao');
+    const addTitulo = document.getElementById('add-titulo');
+    const addGenero = generoToString();
+    const addAno = document.getElementById('add-ano');
+    const addDescricao = document.getElementById('add-descricao');
     const addImageUrl = document.getElementById("add-imageUrl")
         const item = {
         id: 0,
-        titulo: addTituloTextbox.value.trim(),
-        genero: addGeneroTextbox.value.trim(),
-        ano: addAnoTextbox.value.trim(),
-        descricao: addDescricaoTextbox.value.trim(),
+        titulo: addTitulo.value.trim(),
+        genero: addGenero,
+        ano: addAno.value.trim(),
+        descricao: addDescricao.value.trim(),
         imageUrl: addImageUrl.value.trim(),
         firstLetter: addFirstLetter.value.trim()
     };
@@ -36,11 +36,11 @@ function addItem() {
         .then(response => response.json())
         .then(() => {
             getItems();
-            addTituloTextbox.value = '';
-            addDescricaoTextbox.value = '';
-            addGeneroTextbox.value = '';
+            addTitulo.value = '';
+            addDescricao.value = '';
+            addGenero.value = '';
             addImageUrl = '';
-            addAnoTextbox = 0;
+            addAno = 0;
             addFirstLetter = '';
         })
         .catch(error => alert("Erro"));
@@ -150,11 +150,67 @@ function _displayItems(data) {
 
     animes = data;   
 }
-
-
-
 function loadImage(){
     const imageUrl = document.getElementById("add-imageUrl").value;
     const image =  document.getElementById("add-imageload");
     image.src = imageUrl;
 }
+//add oo genero selecionado pelo usuario na id= tabale-selecionado'
+//e retira o genero selecionado da list-genero
+function teste(){
+    const tBody = document.getElementById('add-generos');
+    let selecionado ;
+     for(var opcao of document.getElementById('list-genero').options){
+        if(opcao.selected){
+            selecionado = opcao.value;
+            opcao.style.display = 'none';
+        }
+    }
+    let tr = tBody.insertRow(0);
+    let td1 = tr.insertCell(0);
+    td1.setAttribute("class","selecionado");
+    document.createTextNode(selecionado);
+    td1.appendChild(document.createTextNode(selecionado));   
+    td2 = tr.insertCell(1);
+    let button = document.createElement("button");
+    button.setAttribute("onclick", "onCancelGenero()")
+    button.innerText = "X";
+    td2.appendChild(button);
+
+    
+}
+
+// permite o usuario tirar o genero da tabele genero-selecionado
+// e manda esse genero de volta para list-genero 
+function onCancelGenero(){
+    let volta = document.getElementsByClassName("selecionado")
+    for(var opcao of document.getElementById('list-genero')){
+        if(opcao.style.display =="none"){
+            for(i=0; i < volta.length; i++){
+                if(opcao.outerText == volta.item(this.index).textContent)
+                    opcao.style.display = "block";
+            }
+        }
+    }
+    document.getElementById("tabela-selecionado").deleteRow(this.index)
+
+}
+
+//Trasforma o array em uma string
+function generoToString(){
+    let generos = document.getElementsByClassName("selecionado");
+    let string="";
+    for(i=0; i < generos.length; i++){
+        string += generos.item(i).textContent + ", ";
+    }
+    return string;
+}
+
+/*function getTableGenero(){
+    let tabela = document.getElementsByClassName("selecionado");
+    let generos = [];
+    for(i=0; i < tabela.length; i++){
+         generos[i] = tabela.item(i).textContent;
+    }
+    return generos;
+}*/
