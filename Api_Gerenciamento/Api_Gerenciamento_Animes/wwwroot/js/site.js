@@ -5,14 +5,14 @@ function getItems() {
     fetch(uri)
         .then(response => response.json())
         .then(data => _displayItems(data))
-        .catch(error => alert("Erro"));
+        .catch(error => console.error("Não se conectar com Api item.", error));
 
 }
 
 function addItem() {
     const addFirstLetter = document.getElementById("add-firstLetter")    
     const addTitulo = document.getElementById('add-titulo');
-    const addGenero = generoToString();
+    const addGenero = generoToString("selecionado");
     const addAno = document.getElementById('add-ano');
     const addDescricao = document.getElementById('add-descricao');
     const addImageUrl = document.getElementById("add-imageUrl")
@@ -43,7 +43,7 @@ function addItem() {
             addAno = 0;
             addFirstLetter = '';
         })
-        .catch(error => alert("Erro"));
+        .catch(error => console.error("Não foi possível add item.", error));
 
     }
 function deleteItem(id) {
@@ -58,7 +58,9 @@ function displayEditForm(id) {
     const item = animes.find(item => item.id === id);
     document.getElementById('edit-id').value = item.id;
     document.getElementById('edit-titulo').value = item.titulo;
-    document.getElementById('edit-genero').value = item.genero;
+    //passando a string que a api retorna em forma de array para
+    //tirar os generos que já estão no anime das opções do select
+    addGenerosEditToTable(item.genero.split(", "));
     document.getElementById('edit-ano').value = item.ano;
     document.getElementById('edit-imageUrl').value = item.imageUrl;
     document.getElementById('edit-descricao').value = item.descricao;
@@ -69,18 +71,18 @@ function displayEditForm(id) {
 
 function updateItem() {
     let itemId = document.getElementById('edit-id').value;
-    let editTituloTextbox = document.getElementById('edit-titulo');
-    let editGeneroTextbox = document.getElementById('edit-genero');
-    let editAnoTextbox = document.getElementById('edit-ano');
+    let editTitulo = document.getElementById('edit-titulo');
+    let editAno = document.getElementById('edit-ano');
     let editImageUrl = document.getElementById("edit-imageUrl")
-    let editDescricaoTextbox = document.getElementById('edit-descricao');
+    let editDescricao = document.getElementById('edit-descricao');
     let editFirstLetter = document.getElementById('edit-firstLetter');
     let item = {
         id: parseInt(itemId, 10),
-        titulo: editTituloTextbox.value.trim(),
-        genero: editGeneroTextbox.value.trim(),
-        ano: editAnoTextbox.value.trim(),
-        descricao: editDescricaoTextbox.value.trim(),
+        titulo: editTitulo.value.trim(),
+        //pegando os generos selecionados e passando em forma de string
+        genero: generoToString("selecionado-edit"),
+        ano: editAno.value.trim(),
+        descricao: editDescricao.value.trim(),
         imageurl: editImageUrl.value.trim(),
         firstLetter: editFirstLetter.value.trim()
     };
@@ -93,16 +95,15 @@ function updateItem() {
         },
         body: JSON.stringify(item)
     })
-        .then(() => {
+        /*.then(() => {
             getItems();
             itemId = 0;
-            editAnoTextbox.value = 0;
-            editDescricaoTextbox.value = '';
-            editGeneroTextbox.value = '';
+            editAno.value = 0;
+            editDescricao.value = '';
+            /*editGenero.value = '';
             editImageUrl.value = '';
-            editTituloTextbox.value = '';
-            alert("Editado com Sucesso!!!");
-        })
+            editTitulo.value = '';
+        })*/
 
         .catch(error => console.error("Não foi possível atualizar item.", error))
     return false;
@@ -118,6 +119,7 @@ function _displayCount(itemCount) {
     document.getElementById('counter').innerText = `${itemCount} ${name}`;
 }
 
+//cria tabela com os animes já cadastrados no serviço 
 function _displayItems(data) {
     const tBody = document.getElementById('animes');
     tBody.innerHTML = '';
@@ -150,6 +152,8 @@ function _displayItems(data) {
 
     animes = data;   
 }
+
+//permite carregar o link da imagem para o usario
 function loadImage(){
     const imageUrl = document.getElementById("add-imageUrl").value;
     const image =  document.getElementById("add-imageload");
@@ -157,7 +161,7 @@ function loadImage(){
 }
 //add oo genero selecionado pelo usuario na id= tabale-selecionado'
 //e retira o genero selecionado da list-genero
-function teste(){
+function addTableSelecionados(){
     const tBody = document.getElementById('add-generos');
     let selecionado ;
      for(var opcao of document.getElementById('list-genero').options){
@@ -173,37 +177,103 @@ function teste(){
     td1.appendChild(document.createTextNode(selecionado));   
     td2 = tr.insertCell(1);
     let button = document.createElement("button");
-    button.setAttribute("onclick", "onCancelGenero()")
+    button.setAttribute("type", "button");
+    button.setAttribute("onclick", "onCancelGenero(this)")
     button.innerText = "X";
     td2.appendChild(button);
-
-    
 }
+
+
 
 // permite o usuario tirar o genero da tabele genero-selecionado
 // e manda esse genero de volta para list-genero 
-function onCancelGenero(){
-    let volta = document.getElementsByClassName("selecionado")
+function onCancelGenero(button){
+    let volta = document.getElementsByClassName("selecionado");
     for(var opcao of document.getElementById('list-genero')){
+        if (opcao.style.display == "none") {
+            if (opcao.outerText == volta[button.parentNode.parentNode.rowIndex - 1].textContent)
+                opcao.style.display = "block";
+        }
+    }
+    document.getElementById("tabela-selecionado").deleteRow(button.parentNode.parentNode.rowIndex)
+}
+
+function editTableSelecionados(){
+    const tBody = document.getElementById('edit-generos');
+    let selecionado ;
+     for(var opcao of document.getElementById('list-genero-edit').options){
+        if(opcao.selected){
+            selecionado = opcao.value;
+            opcao.style.display = 'none';
+        }
+    }
+    let tr = tBody.insertRow(0);
+    let td1 = tr.insertCell(0);
+    td1.setAttribute("class","selecionado-edit");
+    document.createTextNode(selecionado);
+    td1.appendChild(document.createTextNode(selecionado));   
+    td2 = tr.insertCell(1);
+    let button = document.createElement("button");
+    button.setAttribute("type", "button");
+    button.setAttribute("onclick", "onCancelGeneroEdit(this)");
+    button.innerText = "X";
+    td2.appendChild(button);
+}
+
+function onCancelGeneroEdit(button){
+    let volta = document.getElementsByClassName("selecionado-edit");
+    for(var opcao of document.getElementById('list-genero-edit')){
         if(opcao.style.display =="none"){
-            for(i=0; i < volta.length; i++){
-                if(opcao.outerText == volta.item(this.index).textContent)
-                    opcao.style.display = "block";
+            if(opcao.textContent == volta[button.parentNode.parentNode.rowIndex - 1].textContent) {
+                opcao.style.display = "block";
+                document.getElementById("tabela-selecionado-edit").deleteRow(button.parentNode.parentNode.rowIndex)
             }
         }
     }
-    document.getElementById("tabela-selecionado").deleteRow(this.index)
-
 }
 
+//pega a string 
+function addGenerosEditToTable(arrayGeneros){
+    let tBody = document.getElementById("edit-generos");
+    for(var opcao of document.getElementById("list-genero-edit").options){
+        for(i=0; i < arrayGeneros.length; i++){
+            if(opcao.value == arrayGeneros[i]){
+                opcao.style.display = 'none';
+                let tr = tBody.insertRow(0);
+                let td1 = tr.insertCell(0);
+                td1.setAttribute("class","selecionado-edit");
+                document.createTextNode(arrayGeneros[i].value);
+                td1.appendChild(document.createTextNode(arrayGeneros[i]));   
+                td2 = tr.insertCell(1);
+                let button = document.createElement("button");
+                button.cloneNode(false);
+                button.setAttribute("onclick", "onCancelGeneroEdit(this)")
+                button.innerText = "X";
+                td2.appendChild(button);
+            }
+        }
+    }
+
+}
 //Trasforma o array em uma string
-function generoToString(){
-    let generos = document.getElementsByClassName("selecionado");
+function generoToString(className){
+    let generos = document.getElementsByClassName(className);
     let string="";
-    for(i=0; i < generos.length; i++){
-        string += generos.item(i).textContent + ", ";
+    for (i = 0; i < generos.length; i++){
+        //tirando ", " da ultimo genero 
+        if( i == generos.length-1 )
+            string+= generos.item(i).textContent
+        else
+            string += generos.item(i).textContent + ", ";
     }
     return string;
+}
+
+function limparTable(table){
+    let tr = table.getElementsByTagName('tr');
+    for(i=0; i< tr.length; i++)
+        tr[i].remove();
+
 }
 
 /*function getTableGenero(){
@@ -214,3 +284,4 @@ function generoToString(){
     }
     return generos;
 }*/
+
